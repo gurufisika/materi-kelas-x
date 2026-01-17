@@ -1,0 +1,1161 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bab 6: Hukum Newton</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Quicksand', sans-serif;
+    }
+    
+    .poppins {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    @keyframes bounce-in {
+      0% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0.5);
+      }
+      50% {
+        transform: translateY(20px) scale(1.1);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    @keyframes slide-in-left {
+      from {
+        opacity: 0;
+        transform: translateX(-100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes slide-in-right {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes fade-scale {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 40px rgba(239, 68, 68, 0.8);
+      }
+    }
+    
+    @keyframes rocket-fly {
+      0%, 100% {
+        transform: translateY(0) rotate(-5deg);
+      }
+      50% {
+        transform: translateY(-15px) rotate(5deg);
+      }
+    }
+    
+    .animate-bounce-in {
+      animation: bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    }
+    
+    .animate-slide-left {
+      animation: slide-in-left 0.6s ease-out forwards;
+    }
+    
+    .animate-slide-right {
+      animation: slide-in-right 0.6s ease-out forwards;
+    }
+    
+    .animate-fade-scale {
+      animation: fade-scale 0.8s ease-out forwards;
+    }
+    
+    .pulse-glow {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    
+    .rocket-fly {
+      animation: rocket-fly 3s ease-in-out infinite;
+    }
+    
+    .delay-100 { animation-delay: 0.1s; opacity: 0; }
+    .delay-200 { animation-delay: 0.2s; opacity: 0; }
+    .delay-300 { animation-delay: 0.3s; opacity: 0; }
+    .delay-400 { animation-delay: 0.4s; opacity: 0; }
+    .delay-500 { animation-delay: 0.5s; opacity: 0; }
+    
+    .content-card {
+      transition: all 0.3s ease;
+    }
+    
+    .content-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+    
+    .quiz-option {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .quiz-option:hover {
+      transform: translateX(8px);
+      background-color: rgba(239, 68, 68, 0.08);
+    }
+    
+    .quiz-option.correct {
+      background-color: rgba(34, 197, 94, 0.2);
+      border-color: #22c55e;
+    }
+    
+    .quiz-option.wrong {
+      background-color: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50">
+  <div id="app-container" class="h-full w-full overflow-auto"><!-- Floating Background Animation -->
+   <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-20 right-20 w-96 h-96 bg-red-300/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 left-20 w-80 h-80 bg-orange-300/20 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 left-1/2 w-72 h-72 bg-yellow-300/15 rounded-full blur-3xl"></div>
+   </div><!-- Main Content -->
+   <div class="relative z-10 min-h-full"><!-- Header -->
+    <header class="bg-white/95 backdrop-blur-xl shadow-lg sticky top-0 z-50 border-b-4 border-red-600">
+     <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-5">
+      <div class="flex items-center justify-between">
+       <div class="flex items-center gap-3 md:gap-4">
+        <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-red-600 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl flex-shrink-0 pulse-glow"><span class="text-2xl md:text-4xl rocket-fly">🚀</span>
+        </div>
+        <div>
+         <div class="text-xs md:text-sm font-bold text-red-600 tracking-wide">
+          BAB 6 - FISIKA KELAS X
+         </div>
+         <h1 id="chapter-title" class="text-lg md:text-3xl font-black text-gray-900 poppins">Hukum Newton</h1>
+        </div>
+       </div>
+       <div class="hidden lg:block text-right">
+        <div class="text-xs text-gray-500 mb-1">
+         Pengajar
+        </div>
+        <div id="teacher-name" class="font-bold text-gray-900 text-lg">
+         Abdurrazzaq
+        </div>
+        <div id="school-name" class="text-sm text-gray-600">
+         SMA Negeri 1 Halmahera Timur
+        </div>
+       </div>
+      </div>
+     </div>
+    </header><!-- Content -->
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12"><!-- Introduction -->
+     <section class="mb-10 md:mb-14 animate-fade-scale">
+      <div class="bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 rounded-3xl md:rounded-[2rem] p-6 md:p-10 text-white shadow-2xl">
+       <div class="flex items-center gap-4 mb-4">
+        <div class="relative"><span class="text-5xl md:text-6xl">🚀</span>
+        </div>
+        <div>
+         <h2 class="text-2xl md:text-4xl font-black poppins">Selamat Datang di Bab 6!</h2>
+         <p class="text-base md:text-lg text-orange-100 mt-1">Mari pahami tiga hukum dasar gerak benda</p>
+        </div>
+       </div>
+       <p class="text-base md:text-xl leading-relaxed text-orange-50"><strong>Hukum Newton tentang Gerak</strong> adalah tiga hukum fundamental yang menjelaskan hubungan antara gaya yang bekerja pada benda dengan gerak yang dihasilkan. Hukum-hukum ini ditemukan oleh Sir Isaac Newton pada abad ke-17 dan menjadi dasar dari mekanika klasik. Dari mobil yang melaju di jalan, roket yang meluncur ke angkasa, hingga bola yang kita tendang - semuanya mengikuti hukum Newton!</p>
+      </div>
+     </section><!-- Hukum I Newton -->
+     <section id="hukum-1" class="mb-10 md:mb-14 animate-slide-left delay-100 scroll-mt-24">
+      <div class="bg-white rounded-3xl md:rounded-[2rem] p-6 md:p-10 shadow-xl content-card">
+       <div class="flex items-center gap-3 mb-6"><span class="text-4xl md:text-5xl">①</span>
+        <h2 class="text-2xl md:text-4xl font-black text-gray-900 poppins">Hukum I Newton (Hukum Kelembaman)</h2>
+       </div>
+       <div class="space-y-8">
+        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 md:p-8 border-l-4 border-blue-600">
+         <h3 class="text-2xl font-bold text-blue-700 mb-4">📖 Bunyi Hukum</h3>
+         <div class="bg-white rounded-xl p-6 mb-4">
+          <p class="text-lg text-gray-800 leading-relaxed italic font-semibold text-center">"Jika resultan gaya yang bekerja pada benda sama dengan nol, maka benda yang diam akan tetap diam dan benda yang bergerak akan tetap bergerak dengan kecepatan konstan"</p>
+         </div>
+         <div class="bg-blue-100 rounded-xl p-5 text-center">
+          <p class="text-2xl font-bold text-blue-800 mb-2">ΣF = 0</p>
+          <p class="text-gray-700">Benda diam tetap diam ATAU bergerak lurus beraturan</p>
+         </div>
+        </div><!-- Penjelasan -->
+        <div>
+         <h3 class="text-2xl font-bold text-red-700 mb-5">💡 Konsep Kelembaman (Inersia)</h3>
+         <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-gradient-to-br from-red-500 to-orange-600 rounded-2xl p-6 text-white">
+           <h4 class="text-xl font-bold mb-4">📌 Apa itu Kelembaman?</h4>
+           <p class="text-red-50 leading-relaxed mb-4"><strong>Kelembaman (Inersia)</strong> adalah kecenderungan benda untuk mempertahankan keadaan geraknya. Benda diam cenderung tetap diam, benda bergerak cenderung tetap bergerak.</p>
+           <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+            <p class="text-sm font-semibold mb-2">Faktor yang Mempengaruhi:</p>
+            <p class="text-sm">• Massa benda</p>
+            <p class="text-sm">• Semakin besar massa, semakin besar kelembaman</p>
+           </div>
+          </div>
+          <div class="bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl p-6 text-white">
+           <h4 class="text-xl font-bold mb-4">🎯 Contoh dalam Kehidupan</h4>
+           <div class="space-y-3">
+            <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+             <p class="font-semibold mb-1">🚗 Penumpang Terdorong ke Depan</p>
+             <p class="text-sm text-purple-100">Saat mobil direm mendadak, tubuh cenderung tetap bergerak ke depan</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+             <p class="font-semibold mb-1">🍽️ Menarik Taplak Meja</p>
+             <p class="text-sm text-purple-100">Piring tetap di tempat karena kelembaman saat taplak ditarik cepat</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+             <p class="font-semibold mb-1">🚌 Tubuh Terdorong ke Belakang</p>
+             <p class="text-sm text-purple-100">Saat bus mulai bergerak, tubuh cenderung tetap diam</p>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div><!-- Ilustrasi -->
+        <div>
+         <h3 class="text-2xl font-bold text-red-700 mb-5 text-center">🎨 Ilustrasi Visual</h3>
+         <div class="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl p-6 text-white">
+          <svg viewbox="0 0 800 300" class="w-full"><!-- Kondisi 1: Benda Diam --> <g>
+            <text x="100" y="30" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">
+             Benda Diam
+            </text>
+            <rect x="50" y="50" width="100" height="60" fill="#ef4444" rx="8" />
+            <text x="100" y="85" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold">
+             DIAM
+            </text> <!-- Ground -->
+            <line x1="20" y1="120" x2="180" y2="120" stroke="#fff" stroke-width="3" />
+            <text x="100" y="150" text-anchor="middle" fill="#fff" font-size="16">
+             ΣF = 0
+            </text>
+            <text x="100" y="175" text-anchor="middle" fill="#fef3c7" font-size="14">
+             Tetap diam
+            </text>
+           </g> <!-- Arrow --> <text x="250" y="90" text-anchor="middle" fill="#fbbf24" font-size="30">
+            →
+           </text> <!-- Kondisi 2: Benda Bergerak GLB --> <g>
+            <text x="450" y="30" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">
+             Bergerak Lurus Beraturan
+            </text> <!-- Box with motion -->
+            <rect x="400" y="50" width="100" height="60" fill="#f97316" rx="8" />
+            <text x="450" y="85" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">
+             v konstan
+            </text> <!-- Motion lines -->
+            <line x1="370" y1="70" x2="390" y2="70" stroke="#fbbf24" stroke-width="2" />
+            <line x1="370" y1="85" x2="390" y2="85" stroke="#fbbf24" stroke-width="2" />
+            <line x1="370" y1="100" x2="390" y2="100" stroke="#fbbf24" stroke-width="2" /> <!-- Ground -->
+            <line x1="370" y1="120" x2="530" y2="120" stroke="#fff" stroke-width="3" />
+            <text x="450" y="150" text-anchor="middle" fill="#fff" font-size="16">
+             ΣF = 0
+            </text>
+            <text x="450" y="175" text-anchor="middle" fill="#fef3c7" font-size="14">
+             Bergerak GLB
+            </text>
+           </g> <!-- Additional Info --> <rect x="50" y="210" width="700" height="70" fill="rgba(255,255,255,0.2)" rx="12" /> <text x="400" y="240" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">
+            Kesimpulan Hukum I Newton:
+           </text> <text x="400" y="265" text-anchor="middle" fill="#fef3c7" font-size="15">
+            Benda mempertahankan keadaan geraknya jika resultan gaya = 0
+           </text>
+          </svg>
+         </div>
+        </div>
+        <div class="bg-yellow-50 rounded-2xl p-6 border-l-4 border-yellow-500">
+         <div class="flex items-start gap-3"><span class="text-3xl">⚠️</span>
+          <div>
+           <h4 class="font-bold text-yellow-800 mb-2 text-lg">Poin Penting:</h4>
+           <ul class="space-y-2 text-gray-700">
+            <li>• Hukum I Newton disebut juga <strong>Hukum Kelembaman/Inersia</strong></li>
+            <li>• Berlaku dalam <strong>kerangka acuan inersial</strong> (tidak mengalami percepatan)</li>
+            <li>• Benda tidak berubah keadaan geraknya KECUALI ada gaya dari luar</li>
+            <li>• Massa adalah ukuran kelembaman benda</li>
+            <li>• Sabuk pengaman di mobil adalah aplikasi hukum ini</li>
+           </ul>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Hukum II Newton -->
+     <section id="hukum-2" class="mb-10 md:mb-14 animate-slide-right delay-200 scroll-mt-24">
+      <div class="bg-white rounded-3xl md:rounded-[2rem] p-6 md:p-10 shadow-xl content-card">
+       <div class="flex items-center gap-3 mb-6"><span class="text-4xl md:text-5xl">②</span>
+        <h2 class="text-2xl md:text-4xl font-black text-gray-900 poppins">Hukum II Newton</h2>
+       </div>
+       <div class="space-y-8">
+        <div class="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-6 md:p-8 border-l-4 border-orange-600">
+         <h3 class="text-2xl font-bold text-orange-700 mb-4">📖 Bunyi Hukum</h3>
+         <div class="bg-white rounded-xl p-6 mb-4">
+          <p class="text-lg text-gray-800 leading-relaxed italic font-semibold text-center">"Percepatan yang dialami benda berbanding lurus dengan resultan gaya yang bekerja padanya dan berbanding terbalik dengan massa benda"</p>
+         </div>
+         <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-orange-100 rounded-xl p-5 text-center">
+           <p class="text-3xl font-bold text-orange-800 mb-2">ΣF = m × a</p>
+           <p class="text-gray-700 text-sm">Bentuk Umum</p>
+          </div>
+          <div class="bg-red-100 rounded-xl p-5 text-center">
+           <p class="text-3xl font-bold text-red-800 mb-2">a = ΣF / m</p>
+           <p class="text-gray-700 text-sm">Mencari Percepatan</p>
+          </div>
+         </div>
+        </div><!-- Penjelasan Rumus -->
+        <div>
+         <h3 class="text-2xl font-bold text-orange-700 mb-5 text-center">🔍 Memahami Rumus</h3>
+         <div class="grid md:grid-cols-3 gap-5">
+          <div class="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
+           <div class="text-4xl mb-3 text-center">
+            📊
+           </div>
+           <h4 class="font-bold text-blue-800 text-lg mb-3 text-center">ΣF (Sigma F)</h4>
+           <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-700 mb-2"><strong>Resultan Gaya</strong></p>
+            <p class="text-sm text-gray-600">• Jumlah semua gaya yang bekerja</p>
+            <p class="text-sm text-gray-600">• Satuan: Newton (N)</p>
+            <p class="text-sm text-gray-600">• Mempertimbangkan arah gaya</p>
+           </div>
+          </div>
+          <div class="bg-purple-50 rounded-2xl p-6 border-2 border-purple-200">
+           <div class="text-4xl mb-3 text-center">
+            ⚖️
+           </div>
+           <h4 class="font-bold text-purple-800 text-lg mb-3 text-center">m (Massa)</h4>
+           <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-700 mb-2"><strong>Massa Benda</strong></p>
+            <p class="text-sm text-gray-600">• Ukuran kelembaman</p>
+            <p class="text-sm text-gray-600">• Satuan: kilogram (kg)</p>
+            <p class="text-sm text-gray-600">• Semakin besar, semakin sulit dipercepat</p>
+           </div>
+          </div>
+          <div class="bg-green-50 rounded-2xl p-6 border-2 border-green-200">
+           <div class="text-4xl mb-3 text-center">
+            🚀
+           </div>
+           <h4 class="font-bold text-green-800 text-lg mb-3 text-center">a (Percepatan)</h4>
+           <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-700 mb-2"><strong>Percepatan Benda</strong></p>
+            <p class="text-sm text-gray-600">• Perubahan kecepatan per waktu</p>
+            <p class="text-sm text-gray-600">• Satuan: m/s²</p>
+            <p class="text-sm text-gray-600">• Searah dengan resultan gaya</p>
+           </div>
+          </div>
+         </div>
+        </div><!-- Hubungan -->
+        <div>
+         <h3 class="text-2xl font-bold text-orange-700 mb-5 text-center">🔗 Hubungan Antar Besaran</h3>
+         <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-6 text-white">
+           <h4 class="text-xl font-bold mb-4 text-center">F ↑ → a ↑</h4>
+           <p class="text-green-100 text-center mb-4">Gaya berbanding lurus dengan percepatan</p>
+           <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+            <p class="text-sm mb-2">✓ Gaya makin besar → percepatan makin besar</p>
+            <p class="text-sm mb-2">✓ Contoh: Mendorong mobil dengan gaya 2x lipat → percepatan 2x lipat</p>
+           </div>
+          </div>
+          <div class="bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl p-6 text-white">
+           <h4 class="text-xl font-bold mb-4 text-center">m ↑ → a ↓</h4>
+           <p class="text-red-100 text-center mb-4">Massa berbanding terbalik dengan percepatan</p>
+           <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+            <p class="text-sm mb-2">✓ Massa makin besar → percepatan makin kecil</p>
+            <p class="text-sm mb-2">✓ Contoh: Mendorong truk lebih sulit daripada mobil dengan gaya yang sama</p>
+           </div>
+          </div>
+         </div>
+        </div><!-- Ilustrasi -->
+        <div>
+         <h3 class="text-2xl font-bold text-orange-700 mb-5 text-center">🎨 Ilustrasi Hukum II Newton</h3>
+         <div class="bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl p-6 text-white">
+          <svg viewbox="0 0 700 400" class="w-full"><!-- Scenario 1: Same force, different mass --> <text x="175" y="30" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">
+            Gaya Sama, Massa Beda
+           </text> <!-- Light box --> <rect x="50" y="50" width="60" height="60" fill="#fbbf24" rx="5" /> <text x="80" y="85" text-anchor="middle" fill="#000" font-size="14" font-weight="bold">
+            m
+           </text> <!-- Force arrow --> <defs>
+            <marker id="arrow1" markerwidth="10" markerheight="10" refx="8" refy="3" orient="auto">
+             <polygon points="0 0, 10 3, 0 6" fill="#fff" />
+            </marker>
+           </defs> <line x1="120" y1="80" x2="180" y2="80" stroke="#fff" stroke-width="3" marker-end="url(#arrow1)" /> <text x="150" y="70" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">
+            F
+           </text> <text x="80" y="140" text-anchor="middle" fill="#fef3c7" font-size="14">
+            a = besar
+           </text> <!-- Heavy box --> <rect x="230" y="40" width="80" height="80" fill="#f97316" rx="5" /> <text x="270" y="85" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">
+            2m
+           </text> <!-- Force arrow --> <line x1="320" y1="80" x2="380" y2="80" stroke="#fff" stroke-width="3" marker-end="url(#arrow1)" /> <text x="350" y="70" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">
+            F
+           </text> <text x="270" y="150" text-anchor="middle" fill="#fef3c7" font-size="14">
+            a = kecil
+           </text> <!-- Divider --> <line x1="50" y1="180" x2="400" y2="180" stroke="#fff" stroke-width="2" opacity="0.3" /> <!-- Scenario 2: Different force, same mass --> <text x="225" y="210" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">
+            Massa Sama, Gaya Beda
+           </text> <!-- Box with small force --> <rect x="70" y="230" width="60" height="60" fill="#fbbf24" rx="5" /> <text x="100" y="265" text-anchor="middle" fill="#000" font-size="14" font-weight="bold">
+            m
+           </text> <!-- Small force arrow --> <line x1="140" y1="260" x2="180" y2="260" stroke="#fff" stroke-width="3" marker-end="url(#arrow1)" /> <text x="160" y="250" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">
+            F
+           </text> <text x="100" y="320" text-anchor="middle" fill="#fef3c7" font-size="14">
+            a = kecil
+           </text> <!-- Box with large force --> <rect x="250" y="230" width="60" height="60" fill="#fbbf24" rx="5" /> <text x="280" y="265" text-anchor="middle" fill="#000" font-size="14" font-weight="bold">
+            m
+           </text> <!-- Large force arrow --> <line x1="320" y1="260" x2="400" y2="260" stroke="#fff" stroke-width="5" marker-end="url(#arrow1)" /> <text x="360" y="245" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">
+            2F
+           </text> <text x="280" y="320" text-anchor="middle" fill="#fef3c7" font-size="14">
+            a = besar
+           </text> <!-- Formula box --> <rect x="450" y="140" width="220" height="140" fill="rgba(255,255,255,0.2)" rx="12" /> <text x="560" y="175" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold">
+            ΣF = m × a
+           </text> <text x="560" y="210" text-anchor="middle" fill="#fef3c7" font-size="14">
+            F ↑ → a ↑
+           </text> <text x="560" y="235" text-anchor="middle" fill="#fef3c7" font-size="14">
+            m ↑ → a ↓
+           </text> <text x="560" y="260" text-anchor="middle" fill="#fef3c7" font-size="14">
+            a searah ΣF
+           </text>
+          </svg>
+         </div>
+        </div>
+        <div class="bg-yellow-50 rounded-2xl p-6 border-l-4 border-yellow-500">
+         <div class="flex items-start gap-3"><span class="text-3xl">💡</span>
+          <div>
+           <h4 class="font-bold text-yellow-800 mb-2 text-lg">Poin Penting:</h4>
+           <ul class="space-y-2 text-gray-700">
+            <li>• Hukum II Newton adalah hukum <strong>kuantitatif</strong> (dapat dihitung)</li>
+            <li>• Percepatan selalu <strong>searah</strong> dengan resultan gaya</li>
+            <li>• Jika ΣF = 0, maka a = 0 (kembali ke Hukum I Newton)</li>
+            <li>• 1 Newton = gaya yang memberi percepatan 1 m/s² pada massa 1 kg</li>
+            <li>• Rumus ini berlaku untuk gerak translasi (gerak lurus)</li>
+           </ul>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Hukum III Newton -->
+     <section id="hukum-3" class="mb-10 md:mb-14 animate-slide-left delay-300 scroll-mt-24">
+      <div class="bg-white rounded-3xl md:rounded-[2rem] p-6 md:p-10 shadow-xl content-card">
+       <div class="flex items-center gap-3 mb-6"><span class="text-4xl md:text-5xl">③</span>
+        <h2 class="text-2xl md:text-4xl font-black text-gray-900 poppins">Hukum III Newton (Aksi-Reaksi)</h2>
+       </div>
+       <div class="space-y-8">
+        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 md:p-8 border-l-4 border-purple-600">
+         <h3 class="text-2xl font-bold text-purple-700 mb-4">📖 Bunyi Hukum</h3>
+         <div class="bg-white rounded-xl p-6 mb-4">
+          <p class="text-lg text-gray-800 leading-relaxed italic font-semibold text-center">"Jika suatu benda memberikan gaya pada benda lain (aksi), maka benda kedua akan memberikan gaya yang sama besar tetapi berlawanan arah pada benda pertama (reaksi)"</p>
+         </div>
+         <div class="bg-purple-100 rounded-xl p-5 text-center">
+          <p class="text-3xl font-bold text-purple-800 mb-2">F<sub>aksi</sub> = -F<sub>reaksi</sub></p>
+          <p class="text-gray-700">Gaya aksi-reaksi sama besar, berlawanan arah</p>
+         </div>
+        </div><!-- Karakteristik -->
+        <div>
+         <h3 class="text-2xl font-bold text-purple-700 mb-5 text-center">🎯 Karakteristik Gaya Aksi-Reaksi</h3>
+         <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl p-6 text-white">
+           <h4 class="text-xl font-bold mb-4">✓ Yang BENAR</h4>
+           <div class="space-y-3">
+            <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+             <p class="font-semibold mb-1">Sama Besar</p>
+             <p class="text-sm text-blue-100">|F<sub>aksi</sub>| = |F<sub>reaksi</sub>|</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+             <p class="font-semibold mb-1">Berlawanan Arah</p>
+             <p class="text-sm text-blue-100">Arah gaya aksi ↔️ reaksi</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+             <p class="font-semibold mb-1">Bekerja pada Benda Berbeda</p>
+             <p class="text-sm text-blue-100">Aksi di benda A, reaksi di benda B</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+             <p class="font-semibold mb-1">Terjadi Bersamaan</p>
+             <p class="text-sm text-blue-100">Tidak ada yang lebih dulu</p>
+            </div>
+           </div>
+          </div>
+          <div class="bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl p-6 text-white">
+           <h4 class="text-xl font-bold mb-4">✗ Kesalahan Umum</h4>
+           <div class="space-y-3">
+            <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+             <p class="font-semibold mb-1">❌ Bekerja pada Benda yang Sama</p>
+             <p class="text-sm text-red-100">SALAH! Aksi dan reaksi pada benda berbeda</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+             <p class="font-semibold mb-1">❌ Saling Meniadakan</p>
+             <p class="text-sm text-red-100">SALAH! Karena bekerja pada benda berbeda</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+             <p class="font-semibold mb-1">❌ Ada yang Lebih Dulu</p>
+             <p class="text-sm text-red-100">SALAH! Keduanya terjadi bersamaan</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-lg rounded-lg p-4">
+             <p class="font-semibold mb-1">❌ Hanya untuk Benda Diam</p>
+             <p class="text-sm text-red-100">SALAH! Berlaku untuk benda diam atau bergerak</p>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div><!-- Contoh -->
+        <div>
+         <h3 class="text-2xl font-bold text-purple-700 mb-5 text-center">🌟 Contoh dalam Kehidupan Sehari-hari</h3>
+         <div class="grid md:grid-cols-3 gap-5">
+          <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border-2 border-green-200">
+           <div class="text-5xl mb-4 text-center">
+            🚀
+           </div>
+           <h4 class="font-bold text-green-800 text-lg mb-3 text-center">Roket Meluncur</h4>
+           <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-700 mb-2"><strong>Aksi:</strong> Roket mendorong gas ke bawah</p>
+            <p class="text-sm text-gray-700"><strong>Reaksi:</strong> Gas mendorong roket ke atas</p>
+           </div>
+          </div>
+          <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 border-2 border-blue-200">
+           <div class="text-5xl mb-4 text-center">
+            🚶
+           </div>
+           <h4 class="font-bold text-blue-800 text-lg mb-3 text-center">Berjalan</h4>
+           <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-700 mb-2"><strong>Aksi:</strong> Kaki mendorong lantai ke belakang</p>
+            <p class="text-sm text-gray-700"><strong>Reaksi:</strong> Lantai mendorong kaki ke depan</p>
+           </div>
+          </div>
+          <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border-2 border-orange-200">
+           <div class="text-5xl mb-4 text-center">
+            🚤
+           </div>
+           <h4 class="font-bold text-orange-800 text-lg mb-3 text-center">Mendayung Perahu</h4>
+           <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-700 mb-2"><strong>Aksi:</strong> Dayung mendorong air ke belakang</p>
+            <p class="text-sm text-gray-700"><strong>Reaksi:</strong> Air mendorong perahu ke depan</p>
+           </div>
+          </div>
+          <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
+           <div class="text-5xl mb-4 text-center">
+            👊
+           </div>
+           <h4 class="font-bold text-purple-800 text-lg mb-3 text-center">Memukul Dinding</h4>
+           <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-700 mb-2"><strong>Aksi:</strong> Tangan memukul dinding</p>
+            <p class="text-sm text-gray-700"><strong>Reaksi:</strong> Dinding "memukul" tangan (sakit!)</p>
+           </div>
+          </div>
+          <div class="bg-gradient-to-br from-red-50 to-rose-50 rounded-2xl p-6 border-2 border-red-200">
+           <div class="text-5xl mb-4 text-center">
+            🏊
+           </div>
+           <h4 class="font-bold text-red-800 text-lg mb-3 text-center">Berenang</h4>
+           <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-700 mb-2"><strong>Aksi:</strong> Tangan mendorong air ke belakang</p>
+            <p class="text-sm text-gray-700"><strong>Reaksi:</strong> Air mendorong tubuh ke depan</p>
+           </div>
+          </div>
+          <div class="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-2xl p-6 border-2 border-yellow-200">
+           <div class="text-5xl mb-4 text-center">
+            🎈
+           </div>
+           <h4 class="font-bold text-yellow-800 text-lg mb-3 text-center">Balon Terbang</h4>
+           <div class="bg-white rounded-lg p-4">
+            <p class="text-sm text-gray-700 mb-2"><strong>Aksi:</strong> Balon melepas udara ke belakang</p>
+            <p class="text-sm text-gray-700"><strong>Reaksi:</strong> Udara mendorong balon ke depan</p>
+           </div>
+          </div>
+         </div>
+        </div><!-- Ilustrasi -->
+        <div>
+         <h3 class="text-2xl font-bold text-purple-700 mb-5 text-center">🎨 Ilustrasi Gaya Aksi-Reaksi</h3>
+         <div class="bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl p-6 text-white">
+          <svg viewbox="0 0 700 350" class="w-full"><!-- Example 1: Person pushing wall --> <text x="175" y="30" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">
+            Mendorong Dinding
+           </text> <!-- Wall --> <rect x="250" y="50" width="30" height="120" fill="#78716c" /> <pattern id="bricks" x="0" y="0" width="30" height="15" patternunits="userSpaceOnUse">
+            <rect width="30" height="15" fill="#78716c" />
+            <rect width="30" height="1" fill="#57534e" />
+           </pattern> <rect x="250" y="50" width="30" height="120" fill="url(#bricks)" /> <!-- Person (simplified) --> <circle cx="170" cy="80" r="15" fill="#fbbf24" /> <rect x="157" y="95" width="26" height="40" fill="#f97316" rx="5" /> <line x1="170" y1="135" x2="155" y2="165" stroke="#f97316" stroke-width="6" /> <line x1="170" y1="135" x2="185" y2="165" stroke="#f97316" stroke-width="6" /> <!-- Action arrow (person to wall) --> <defs>
+            <marker id="arrow-action" markerwidth="12" markerheight="12" refx="10" refy="3" orient="auto">
+             <polygon points="0 0, 12 3, 0 6" fill="#ef4444" />
+            </marker>
+           </defs> <line x1="195" y1="110" x2="240" y2="110" stroke="#ef4444" stroke-width="4" marker-end="url(#arrow-action)" /> <text x="217" y="100" text-anchor="middle" fill="#fef3c7" font-size="14" font-weight="bold">
+            F aksi
+           </text> <!-- Reaction arrow (wall to person) --> <defs>
+            <marker id="arrow-reaction" markerwidth="12" markerheight="12" refx="10" refy="3" orient="auto">
+             <polygon points="0 0, 12 3, 0 6" fill="#10b981" />
+            </marker>
+           </defs> <line x1="240" y1="130" x2="195" y2="130" stroke="#10b981" stroke-width="4" marker-end="url(#arrow-reaction)" /> <text x="217" y="150" text-anchor="middle" fill="#fef3c7" font-size="14" font-weight="bold">
+            F reaksi
+           </text> <!-- Ground --> <line x1="120" y1="170" x2="310" y2="170" stroke="#fff" stroke-width="2" /> <!-- Example 2: Rocket --> <text x="525" y="30" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">
+            Roket Meluncur
+           </text> <!-- Rocket body --> <polygon points="500,70 520,130 480,130" fill="#ef4444" /> <rect x="485" y="80" width="30" height="50" fill="#f97316" /> <polygon points="485,130 500,145 515,130" fill="#fbbf24" /> <!-- Action arrow (rocket pushes gas down) --> <line x1="500" y1="150" x2="500" y2="200" stroke="#ef4444" stroke-width="4" marker-end="url(#arrow-action)" /> <text x="530" y="175" text-anchor="start" fill="#fef3c7" font-size="14" font-weight="bold">
+            F aksi
+           </text> <text x="530" y="192" text-anchor="start" fill="#fef3c7" font-size="11">
+            (gas ke bawah)
+           </text> <!-- Reaction arrow (gas pushes rocket up) --> <line x1="520" y1="115" x2="520" y2="65" stroke="#10b981" stroke-width="4" marker-end="url(#arrow-reaction)" /> <text x="550" y="85" text-anchor="start" fill="#fef3c7" font-size="14" font-weight="bold">
+            F reaksi
+           </text> <text x="550" y="102" text-anchor="start" fill="#fef3c7" font-size="11">
+            (roket ke atas)
+           </text> <!-- Gas/fire effect --> <ellipse cx="500" cy="200" rx="20" ry="15" fill="#fbbf24" opacity="0.7" /> <ellipse cx="500" cy="210" rx="15" ry="10" fill="#f97316" opacity="0.7" /> <!-- Info box --> <rect x="50" y="220" width="600" height="110" fill="rgba(255,255,255,0.2)" rx="12" /> <text x="350" y="250" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold">
+            Prinsip Hukum III Newton:
+           </text> <text x="350" y="280" text-anchor="middle" fill="#fef3c7" font-size="15">
+            ✓ Gaya aksi dan reaksi SAMA BESAR
+           </text> <text x="350" y="305" text-anchor="middle" fill="#fef3c7" font-size="15">
+            ✓ Arah BERLAWANAN
+           </text> <text x="350" y="330" text-anchor="middle" fill="#fef3c7" font-size="15">
+            ✓ Bekerja pada BENDA BERBEDA (tidak saling meniadakan!)
+           </text>
+          </svg>
+         </div>
+        </div>
+        <div class="bg-yellow-50 rounded-2xl p-6 border-l-4 border-yellow-500">
+         <div class="flex items-start gap-3"><span class="text-3xl">⚡</span>
+          <div>
+           <h4 class="font-bold text-yellow-800 mb-2 text-lg">Poin Penting:</h4>
+           <ul class="space-y-2 text-gray-700">
+            <li>• Gaya aksi-reaksi SELALU berpasangan</li>
+            <li>• Bekerja pada <strong>benda yang berbeda</strong>, sehingga TIDAK saling meniadakan</li>
+            <li>• Terjadi <strong>bersamaan</strong>, tidak ada yang lebih dulu</li>
+            <li>• Berlaku untuk semua jenis gaya (kontak maupun non-kontak)</li>
+            <li>• Roket dan jet dapat bergerak karena prinsip aksi-reaksi</li>
+           </ul>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Contoh Soal -->
+     <section id="contoh-soal" class="mb-10 md:mb-14 animate-slide-right delay-400 scroll-mt-24">
+      <div class="bg-white rounded-3xl md:rounded-[2rem] p-6 md:p-10 shadow-xl content-card">
+       <div class="flex items-center gap-3 mb-6"><span class="text-4xl md:text-5xl">✏️</span>
+        <h2 class="text-2xl md:text-4xl font-black text-gray-900 poppins">Contoh Soal &amp; Pembahasan</h2>
+       </div>
+       <div class="space-y-6"><!-- Soal 1 -->
+        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 border-l-4 border-blue-500">
+         <div class="flex items-start gap-3 mb-4"><span class="bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0">1</span>
+          <div class="flex-1">
+           <h3 class="font-bold text-gray-800 text-lg mb-3">Sebuah mobil bermassa 1000 kg bergerak dengan kecepatan konstan 20 m/s. Berapakah resultan gaya yang bekerja pada mobil?</h3>
+           <div class="bg-white rounded-xl p-5">
+            <p class="font-semibold text-blue-700 mb-3">💡 Pembahasan:</p>
+            <div class="space-y-2 text-gray-700">
+             <p><strong>Diketahui:</strong> m = 1000 kg, v = konstan (20 m/s)</p>
+             <p><strong>Ditanya:</strong> ΣF = ?</p>
+             <p><strong>Penyelesaian:</strong></p>
+             <p class="ml-4">Karena kecepatan konstan, berarti percepatan a = 0</p>
+             <p class="ml-4">Menggunakan Hukum I Newton:</p>
+             <p class="ml-4">ΣF = m × a</p>
+             <p class="ml-4">ΣF = 1000 × 0</p>
+             <p class="ml-4">ΣF = 0 N</p>
+             <div class="mt-4 p-4 bg-blue-100 rounded-lg">
+              <p class="font-bold text-blue-800 text-center text-lg">Jawaban: 0 Newton (Hukum I Newton)</p>
+              <p class="text-sm text-gray-600 text-center mt-2">Benda bergerak dengan kecepatan konstan → resultan gaya = 0</p>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div><!-- Soal 2 -->
+        <div class="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-6 border-l-4 border-orange-500">
+         <div class="flex items-start gap-3 mb-4"><span class="bg-orange-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0">2</span>
+          <div class="flex-1">
+           <h3 class="font-bold text-gray-800 text-lg mb-3">Sebuah benda bermassa 5 kg diberi gaya sebesar 20 N. Hitunglah percepatan yang dialami benda tersebut!</h3>
+           <div class="bg-white rounded-xl p-5">
+            <p class="font-semibold text-orange-700 mb-3">💡 Pembahasan:</p>
+            <div class="space-y-2 text-gray-700">
+             <p><strong>Diketahui:</strong> m = 5 kg, F = 20 N</p>
+             <p><strong>Ditanya:</strong> a = ?</p>
+             <p><strong>Penyelesaian:</strong></p>
+             <p class="ml-4">Menggunakan Hukum II Newton:</p>
+             <p class="ml-4">ΣF = m × a</p>
+             <p class="ml-4">a = ΣF / m</p>
+             <p class="ml-4">a = 20 / 5</p>
+             <p class="ml-4">a = 4 m/s²</p>
+             <div class="mt-4 p-4 bg-orange-100 rounded-lg">
+              <p class="font-bold text-orange-800 text-center text-lg">Jawaban: 4 m/s²</p>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div><!-- Soal 3 -->
+        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border-l-4 border-purple-500">
+         <div class="flex items-start gap-3 mb-4"><span class="bg-purple-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0">3</span>
+          <div class="flex-1">
+           <h3 class="font-bold text-gray-800 text-lg mb-3">Sebuah balok bermassa 10 kg ditarik dengan gaya 50 N dan mengalami gaya gesek 20 N. Berapakah percepatan balok?</h3>
+           <div class="bg-white rounded-xl p-5">
+            <p class="font-semibold text-purple-700 mb-3">💡 Pembahasan:</p>
+            <div class="space-y-2 text-gray-700">
+             <p><strong>Diketahui:</strong> m = 10 kg, F<sub>tarik</sub> = 50 N, f<sub>gesek</sub> = 20 N</p>
+             <p><strong>Ditanya:</strong> a = ?</p>
+             <p><strong>Penyelesaian:</strong></p>
+             <p class="ml-4">Hitung resultan gaya (ΣF):</p>
+             <p class="ml-4">ΣF = F<sub>tarik</sub> - f<sub>gesek</sub></p>
+             <p class="ml-4">ΣF = 50 - 20 = 30 N</p>
+             <p class="ml-4 mt-3">Menggunakan Hukum II Newton:</p>
+             <p class="ml-4">a = ΣF / m</p>
+             <p class="ml-4">a = 30 / 10</p>
+             <p class="ml-4">a = 3 m/s²</p>
+             <div class="mt-4 p-4 bg-purple-100 rounded-lg">
+              <p class="font-bold text-purple-800 text-center text-lg">Jawaban: 3 m/s²</p>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div><!-- Soal 4 -->
+        <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-l-4 border-green-500">
+         <div class="flex items-start gap-3 mb-4"><span class="bg-green-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0">4</span>
+          <div class="flex-1">
+           <h3 class="font-bold text-gray-800 text-lg mb-3">Dua benda dengan massa m₁ = 3 kg dan m₂ = 2 kg dihubungkan dengan tali dan ditarik dengan gaya 15 N pada bidang datar licin. Hitunglah percepatan sistem!</h3>
+           <div class="bg-white rounded-xl p-5">
+            <p class="font-semibold text-green-700 mb-3">💡 Pembahasan:</p>
+            <div class="space-y-2 text-gray-700">
+             <p><strong>Diketahui:</strong> m₁ = 3 kg, m₂ = 2 kg, F = 15 N (bidang licin, tanpa gesek)</p>
+             <p><strong>Ditanya:</strong> a = ?</p>
+             <p><strong>Penyelesaian:</strong></p>
+             <p class="ml-4">Total massa sistem:</p>
+             <p class="ml-4">m<sub>total</sub> = m₁ + m₂ = 3 + 2 = 5 kg</p>
+             <p class="ml-4 mt-3">Menggunakan Hukum II Newton:</p>
+             <p class="ml-4">a = F / m<sub>total</sub></p>
+             <p class="ml-4">a = 15 / 5</p>
+             <p class="ml-4">a = 3 m/s²</p>
+             <div class="mt-4 p-4 bg-green-100 rounded-lg">
+              <p class="font-bold text-green-800 text-center text-lg">Jawaban: 3 m/s²</p>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div><!-- Soal 5 -->
+        <div class="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-6 border-l-4 border-yellow-500">
+         <div class="flex items-start gap-3 mb-4"><span class="bg-yellow-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0">5</span>
+          <div class="flex-1">
+           <h3 class="font-bold text-gray-800 text-lg mb-3">Seorang astronot bermassa 60 kg berada di ruang angkasa dan mendorong dinding pesawat dengan gaya 120 N. Jika massa pesawat 2000 kg, berapakah percepatan astronot dan pesawat? (Hukum III Newton)</h3>
+           <div class="bg-white rounded-xl p-5">
+            <p class="font-semibold text-yellow-700 mb-3">💡 Pembahasan:</p>
+            <div class="space-y-2 text-gray-700">
+             <p><strong>Diketahui:</strong> m<sub>astronot</sub> = 60 kg, m<sub>pesawat</sub> = 2000 kg, F = 120 N</p>
+             <p><strong>Ditanya:</strong> a<sub>astronot</sub> dan a<sub>pesawat</sub> = ?</p>
+             <p><strong>Penyelesaian:</strong></p>
+             <p class="ml-4">Menurut Hukum III Newton:</p>
+             <p class="ml-4">F<sub>astronot ke pesawat</sub> = F<sub>pesawat ke astronot</sub> = 120 N</p>
+             <p class="ml-4 mt-3">Percepatan astronot:</p>
+             <p class="ml-4">a<sub>astronot</sub> = F / m<sub>astronot</sub> = 120 / 60 = 2 m/s²</p>
+             <p class="ml-4 mt-3">Percepatan pesawat:</p>
+             <p class="ml-4">a<sub>pesawat</sub> = F / m<sub>pesawat</sub> = 120 / 2000 = 0,06 m/s²</p>
+             <div class="mt-4 p-4 bg-yellow-100 rounded-lg">
+              <p class="font-bold text-yellow-800 text-center text-lg">Jawaban: a<sub>astronot</sub> = 2 m/s² (menjauhi pesawat)</p>
+              <p class="font-bold text-yellow-800 text-center">a<sub>pesawat</sub> = 0,06 m/s² (berlawanan arah)</p>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Latihan Soal -->
+     <section id="latihan" class="mb-12 animate-fade-scale delay-500 scroll-mt-24">
+      <div class="bg-white rounded-3xl md:rounded-[2rem] p-6 md:p-10 shadow-xl content-card">
+       <div class="flex items-center gap-3 mb-6"><span class="text-4xl md:text-5xl">🧪</span>
+        <h2 class="text-2xl md:text-4xl font-black text-gray-900 poppins">Latihan Soal</h2>
+       </div>
+       <div class="bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 rounded-2xl p-6 text-white mb-6">
+        <p class="text-center text-lg">Uji pemahamanmu tentang Hukum Newton dengan menjawab soal-soal berikut!</p>
+       </div>
+       <div class="space-y-6" id="quiz-container"><!-- Quiz questions will be inserted here by JavaScript -->
+       </div>
+       <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center"><button onclick="checkAllAnswers()" class="bg-gradient-to-r from-red-600 to-orange-700 text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-red-700 hover:to-orange-800 transition-all shadow-lg transform hover:scale-105"> Periksa Jawaban </button> <button onclick="resetQuiz()" class="bg-gray-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-600 transition-all shadow-lg transform hover:scale-105"> Ulangi </button>
+       </div>
+       <div id="quiz-result" class="mt-6 hidden"><!-- Result will be shown here -->
+       </div>
+      </div>
+     </section><!-- Aplikasi dalam Kehidupan -->
+     <section class="mb-12">
+      <div class="bg-white rounded-3xl md:rounded-[2rem] p-6 md:p-10 shadow-xl content-card">
+       <div class="flex items-center gap-3 mb-6"><span class="text-4xl md:text-5xl">🌟</span>
+        <h2 class="text-2xl md:text-4xl font-black text-gray-900 poppins">Aplikasi dalam Kehidupan</h2>
+       </div>
+       <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 border-2 border-blue-200">
+         <div class="text-5xl mb-4 text-center">
+          🚗
+         </div>
+         <h3 class="font-bold text-blue-800 text-xl mb-3 text-center">Sabuk Pengaman</h3>
+         <p class="text-gray-700 text-center">Mencegah tubuh terdorong ke depan saat mobil direm (Hukum I)</p>
+        </div>
+        <div class="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-6 border-2 border-orange-200">
+         <div class="text-5xl mb-4 text-center">
+          🏎️
+         </div>
+         <h3 class="font-bold text-orange-800 text-xl mb-3 text-center">Mobil Balap</h3>
+         <p class="text-gray-700 text-center">Mesin besar memberikan gaya dan percepatan lebih besar (Hukum II)</p>
+        </div>
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
+         <div class="text-5xl mb-4 text-center">
+          🚀
+         </div>
+         <h3 class="font-bold text-purple-800 text-xl mb-3 text-center">Roket</h3>
+         <p class="text-gray-700 text-center">Gas didorong ke bawah, roket terdorong ke atas (Hukum III)</p>
+        </div>
+       </div>
+      </div>
+     </section><!-- Rangkuman -->
+     <section class="mb-12">
+      <div class="bg-gradient-to-br from-red-600 via-orange-600 to-yellow-700 rounded-3xl md:rounded-[2rem] p-8 md:p-10 shadow-2xl text-white">
+       <div class="flex items-center gap-3 mb-6"><span class="text-4xl md:text-5xl">📝</span>
+        <h2 class="text-2xl md:text-4xl font-black poppins">Rangkuman Materi</h2>
+       </div>
+       <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6">
+         <h3 class="font-bold text-xl mb-4">Hukum I Newton:</h3>
+         <ul class="space-y-3">
+          <li class="flex items-start gap-3"><span class="text-yellow-300">①</span> <span>ΣF = 0 → benda diam atau GLB</span></li>
+          <li class="flex items-start gap-3"><span class="text-yellow-300">②</span> <span>Hukum kelembaman/inersia</span></li>
+          <li class="flex items-start gap-3"><span class="text-yellow-300">③</span> <span>Massa = ukuran kelembaman</span></li>
+         </ul>
+        </div>
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6">
+         <h3 class="font-bold text-xl mb-4">Hukum II Newton:</h3>
+         <ul class="space-y-3">
+          <li class="flex items-start gap-3"><span class="text-yellow-300">①</span> <span>ΣF = m × a</span></li>
+          <li class="flex items-start gap-3"><span class="text-yellow-300">②</span> <span>F ↑ → a ↑ (berbanding lurus)</span></li>
+          <li class="flex items-start gap-3"><span class="text-yellow-300">③</span> <span>m ↑ → a ↓ (berbanding terbalik)</span></li>
+         </ul>
+        </div>
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6">
+         <h3 class="font-bold text-xl mb-4">Hukum III Newton:</h3>
+         <ul class="space-y-3">
+          <li class="flex items-start gap-3"><span class="text-yellow-300">①</span> <span>F<sub>aksi</sub> = -F<sub>reaksi</sub></span></li>
+          <li class="flex items-start gap-3"><span class="text-yellow-300">②</span> <span>Sama besar, berlawanan arah</span></li>
+          <li class="flex items-start gap-3"><span class="text-yellow-300">③</span> <span>Bekerja pada benda berbeda</span></li>
+         </ul>
+        </div>
+       </div>
+       <div class="mt-6 bg-white/10 backdrop-blur-lg rounded-2xl p-6">
+        <h3 class="font-bold text-xl mb-4">Tips Sukses:</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+         <div class="flex items-start gap-2"><span>💡</span>
+          <p class="text-sm">Pahami perbedaan ketiga hukum Newton</p>
+         </div>
+         <div class="flex items-start gap-2"><span>💡</span>
+          <p class="text-sm">Perhatikan arah gaya saat menghitung resultan</p>
+         </div>
+         <div class="flex items-start gap-2"><span>💡</span>
+          <p class="text-sm">Aksi-reaksi bekerja pada benda berbeda!</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </main><!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+     <div class="max-w-7xl mx-auto px-4 md:px-8 text-center">
+      <p class="text-lg font-semibold mb-2">Portal Pembelajaran Fisika Kelas X</p>
+      <p class="text-gray-400 text-sm">Bab 6: Hukum Newton tentang Gerak</p>
+      <p class="text-gray-500 text-xs mt-4">© 2024 - Dibuat dengan ❤️ untuk pendidikan Indonesia</p>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      chapter_title: "Hukum Newton",
+      teacher_name: "Abdurrazzaq",
+      school_name: "SMA Negeri 1 Halmahera Timur",
+      primary_color: "#dc2626",
+      secondary_color: "#f97316",
+      text_color: "#111827",
+      background_color: "#fef2f2",
+      font_family: "Quicksand",
+      font_size: 16
+    };
+
+    async function onConfigChange(config) {
+      const chapterTitleEl = document.getElementById('chapter-title');
+      const teacherNameEl = document.getElementById('teacher-name');
+      const schoolNameEl = document.getElementById('school-name');
+      
+      if (chapterTitleEl) {
+        chapterTitleEl.textContent = config.chapter_title || defaultConfig.chapter_title;
+      }
+      
+      if (teacherNameEl) {
+        teacherNameEl.textContent = config.teacher_name || defaultConfig.teacher_name;
+      }
+      
+      if (schoolNameEl) {
+        schoolNameEl.textContent = config.school_name || defaultConfig.school_name;
+      }
+      
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      document.body.style.fontFamily = `${fontFamily}, sans-serif`;
+      
+      const baseSize = config.font_size || defaultConfig.font_size;
+      document.body.style.fontSize = `${baseSize}px`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.primary_color || defaultConfig.primary_color,
+            set: (value) => {
+              config.primary_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ primary_color: value });
+            }
+          },
+          {
+            get: () => config.secondary_color || defaultConfig.secondary_color,
+            set: (value) => {
+              config.secondary_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ secondary_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ text_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            if (window.elementSdk) window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            if (window.elementSdk) window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["chapter_title", config.chapter_title || defaultConfig.chapter_title],
+        ["teacher_name", config.teacher_name || defaultConfig.teacher_name],
+        ["school_name", config.school_name || defaultConfig.school_name]
+      ]);
+    }
+
+    // Quiz data
+    const quizQuestions = [
+      {
+        id: 1,
+        question: "Menurut Hukum I Newton, benda yang sedang bergerak lurus beraturan akan...",
+        options: [
+          "Berhenti dengan sendirinya",
+          "Terus bergerak lurus beraturan jika resultan gaya nol",
+          "Bergerak dipercepat",
+          "Bergerak diperlambat"
+        ],
+        correct: 1
+      },
+      {
+        id: 2,
+        question: "Jika massa benda 4 kg dan percepatan 5 m/s², maka resultan gaya yang bekerja adalah...",
+        options: [
+          "9 N",
+          "20 N",
+          "1 N",
+          "0,8 N"
+        ],
+        correct: 1
+      },
+      {
+        id: 3,
+        question: "Pernyataan yang BENAR tentang gaya aksi-reaksi adalah...",
+        options: [
+          "Bekerja pada benda yang sama",
+          "Sama besar dan searah",
+          "Sama besar dan berlawanan arah, bekerja pada benda berbeda",
+          "Saling meniadakan"
+        ],
+        correct: 2
+      },
+      {
+        id: 4,
+        question: "Saat mobil direm mendadak, penumpang terdorong ke depan. Ini merupakan contoh dari...",
+        options: [
+          "Hukum I Newton (kelembaman)",
+          "Hukum II Newton",
+          "Hukum III Newton",
+          "Hukum Gravitasi"
+        ],
+        correct: 0
+      },
+      {
+        id: 5,
+        question: "Roket dapat meluncur ke atas karena...",
+        options: [
+          "Dorongan udara dari bawah",
+          "Gas yang dikeluarkan mendorong roket (Hukum III Newton)",
+          "Gravitasi mendorong roket",
+          "Mesin roket sangat kuat"
+        ],
+        correct: 1
+      }
+    ];
+
+    let selectedAnswers = {};
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = quizQuestions.map(q => `
+        <div class="bg-gray-50 rounded-2xl p-6">
+          <div class="flex items-start gap-3 mb-4">
+            <span class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold flex-shrink-0">${q.id}</span>
+            <h3 class="font-bold text-gray-800 text-lg flex-1">${q.question}</h3>
+          </div>
+          <div class="space-y-3 ml-13">
+            ${q.options.map((option, index) => `
+              <div class="quiz-option bg-white rounded-xl p-4 border-2 border-gray-200 hover:border-red-300" 
+                   data-question="${q.id}" 
+                   data-answer="${index}"
+                   onclick="selectAnswer(${q.id}, ${index})">
+                <div class="flex items-center gap-3">
+                  <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center option-radio">
+                    <div class="w-3 h-3 rounded-full bg-red-600 hidden option-dot"></div>
+                  </div>
+                  <span class="text-gray-700">${option}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectAnswer(questionId, answerIndex) {
+      selectedAnswers[questionId] = answerIndex;
+      
+      const questionOptions = document.querySelectorAll(`[data-question="${questionId}"]`);
+      questionOptions.forEach(option => {
+        const radio = option.querySelector('.option-radio');
+        const dot = option.querySelector('.option-dot');
+        const optionAnswer = parseInt(option.dataset.answer);
+        
+        if (optionAnswer === answerIndex) {
+          radio.classList.add('border-red-600');
+          dot.classList.remove('hidden');
+        } else {
+          radio.classList.remove('border-red-600');
+          dot.classList.add('hidden');
+        }
+        
+        option.classList.remove('correct', 'wrong');
+      });
+    }
+
+    function checkAllAnswers() {
+      let correctCount = 0;
+      
+      quizQuestions.forEach(q => {
+        const userAnswer = selectedAnswers[q.id];
+        const questionOptions = document.querySelectorAll(`[data-question="${q.id}"]`);
+        
+        questionOptions.forEach(option => {
+          const answerIndex = parseInt(option.dataset.answer);
+          
+          if (answerIndex === q.correct) {
+            option.classList.add('correct');
+          }
+          
+          if (userAnswer !== undefined && answerIndex === userAnswer && userAnswer !== q.correct) {
+            option.classList.add('wrong');
+          }
+        });
+        
+        if (userAnswer === q.correct) {
+          correctCount++;
+        }
+      });
+      
+      const score = (correctCount / quizQuestions.length) * 100;
+      const resultDiv = document.getElementById('quiz-result');
+      
+      let resultClass = 'bg-red-100 border-red-500 text-red-800';
+      let resultEmoji = '😢';
+      let resultMessage = 'Tetap semangat! Coba pelajari lagi materinya.';
+      
+      if (score >= 80) {
+        resultClass = 'bg-green-100 border-green-500 text-green-800';
+        resultEmoji = '🎉';
+        resultMessage = 'Luar biasa! Kamu menguasai Hukum Newton dengan sempurna!';
+      } else if (score >= 60) {
+        resultClass = 'bg-yellow-100 border-yellow-500 text-yellow-800';
+        resultEmoji = '😊';
+        resultMessage = 'Bagus! Terus tingkatkan pemahamanmu!';
+      }
+      
+      resultDiv.innerHTML = `
+        <div class="${resultClass} rounded-2xl p-8 border-l-4">
+          <div class="text-center">
+            <span class="text-6xl mb-4 block">${resultEmoji}</span>
+            <h3 class="text-3xl font-bold mb-3">Skor Kamu: ${score.toFixed(0)}%</h3>
+            <p class="text-xl mb-2">Benar: ${correctCount} dari ${quizQuestions.length} soal</p>
+            <p class="mt-4 text-lg">${resultMessage}</p>
+          </div>
+        </div>
+      `;
+      resultDiv.classList.remove('hidden');
+      
+      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function resetQuiz() {
+      selectedAnswers = {};
+      renderQuiz();
+      document.getElementById('quiz-result').classList.add('hidden');
+    }
+
+    // Initialize quiz on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderQuiz();
+    });
+
+    // Make functions global
+    window.selectAnswer = selectAnswer;
+    window.checkAllAnswers = checkAllAnswers;
+    window.resetQuiz = resetQuiz;
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bf494c4d12ba2a7',t:'MTc2ODYzOTU3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

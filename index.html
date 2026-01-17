@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Fisika Kelas X</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&amp;family=Outfit:wght@700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .outfit {
+      font-family: 'Outfit', sans-serif;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    
+    @keyframes rotatingBorder {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3); }
+      50% { box-shadow: 0 0 30px rgba(139, 92, 246, 0.8), 0 0 60px rgba(139, 92, 246, 0.5); }
+    }
+    
+    .float-animation {
+      animation: float 5s ease-in-out infinite;
+    }
+    
+    .slide-up {
+      animation: slideUp 0.6s ease-out forwards;
+    }
+    
+    .pulse-animation {
+      animation: pulse 3s ease-in-out infinite;
+    }
+    
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    .delay-5 { animation-delay: 0.5s; opacity: 0; }
+    .delay-6 { animation-delay: 0.6s; opacity: 0; }
+    
+    .rotating-border {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #8b5cf6, #06b6d4, #8b5cf6);
+      animation: rotatingBorder 3s linear infinite;
+      z-index: -1;
+    }
+    
+    .profile-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+      animation: glow 2s ease-in-out infinite;
+    }
+    
+    .gradient-purple {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .gradient-blue {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    
+    .gradient-green {
+      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+    
+    .gradient-orange {
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+    
+    .gradient-red {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+    
+    .gradient-teal {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+    
+    .menu-card {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .menu-card:hover::before {
+      left: 100%;
+    }
+    
+    .menu-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+    }
+    
+    .menu-card:active {
+      transform: translateY(-8px) scale(0.98);
+    }
+    
+    .shimmer-text {
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-container" class="h-full w-full overflow-auto gradient-purple"><!-- Decorative Background -->
+   <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-20 left-10 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl float-animation"></div>
+    <div class="absolute bottom-20 right-20 w-[500px] h-[500px] bg-purple-400/20 rounded-full blur-3xl float-animation" style="animation-delay: -3s;"></div>
+    <div class="absolute top-1/2 left-1/2 w-80 h-80 bg-pink-400/15 rounded-full blur-3xl float-animation" style="animation-delay: -5s;"></div>
+   </div><!-- Main Content -->
+   <div class="relative z-10 min-h-full px-6 py-16"><!-- Hero Section -->
+    <div class="max-w-6xl mx-auto mb-12 text-center slide-up px-4">
+     <div class="bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 inline-block px-4 py-2 rounded-full mb-4 shadow-lg">
+      <p class="text-indigo-900 font-bold text-xs sm:text-sm tracking-wide">✨ PEMBELAJARAN INTERAKTIF</p>
+     </div>
+     <h1 id="portal-title" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 outfit leading-tight px-2">Portal Fisika</h1>
+     <p id="portal-subtitle" class="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent mb-6">Kelas X Semester 1</p>
+     <p id="welcome-message" class="text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed mb-8 font-medium px-4">Selamat datang di portal pembelajaran fisika interaktif! Pilih bab yang ingin kamu pelajari di bawah ini.</p>
+     <div class="flex flex-col items-center justify-center px-4">
+      <div class="flex flex-col items-center gap-3 bg-white/10 backdrop-blur-xl px-8 py-6 rounded-2xl border-2 border-white/20 shadow-2xl hover:bg-white/15 transition-all w-full sm:w-auto max-w-md"><!-- Profile Photo with Rotating Border -->
+       <div class="relative inline-block pulse-animation">
+        <div class="rotating-border"></div><img src="D:\PPG UNKHAIR\FOTO FORMAL.jpg" class="profile-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div style="display: none; width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #7c3aed); align-items: center; justify-content: center; border: 4px solid rgba(255, 255, 255, 0.9); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); margin: 0 auto;"><span style="font-size: 3rem;">👨‍🏫</span>
+        </div>
+       </div>
+       <div class="text-center">
+        <p class="text-gray-300 text-xs font-semibold uppercase tracking-wide mb-1">Pengajar</p><span id="teacher-display" class="text-white font-bold text-xl mb-4">Abdurrazzaq</span>
+       </div>
+       <div class="text-center border-t border-white/20 pt-4 w-full">
+        <p class="text-gray-300 text-xs font-semibold uppercase tracking-wide mb-1">Sekolah</p><span id="school-display" class="text-white font-bold text-base sm:text-lg">SMA Negeri 1 Halmahera Timur</span>
+       </div>
+      </div>
+     </div>
+    </div><!-- Menu Grid -->
+    <div class="max-w-7xl mx-auto px-4">
+     <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white text-center mb-8 slide-up delay-1 outfit">📚 Daftar Materi Pembelajaran</h2>
+     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"><!-- Bab 1 -->
+      <div class="menu-card glass-card rounded-3xl p-6 cursor-pointer slide-up delay-1">
+       <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl gradient-blue flex items-center justify-center mb-4 shadow-2xl"><span class="text-4xl sm:text-5xl">📏</span>
+       </div>
+       <div class="mb-3"><span class="text-blue-600 font-bold text-xs sm:text-sm tracking-wider">BAB 1</span>
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mt-2 outfit">Besaran dan Satuan</h3>
+       </div>
+       <p class="text-gray-600 text-sm leading-relaxed mb-4">Pelajari tentang besaran pokok, besaran turunan, dan sistem satuan internasional.</p>
+       <a href="C:\Users\ikank\OneDrive\Desktop\dul web\Bab1.html">
+       <div class="flex items-center gap-2 text-blue-600 font-bold text-sm pt-3 border-t border-gray-200"><span>Mulai Belajar</span> <span class="text-lg">→</span>
+       </div></a>
+      </div><!-- Bab 2 -->
+      <div class="menu-card glass-card rounded-3xl p-6 cursor-pointer slide-up delay-2">
+       <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl gradient-green flex items-center justify-center mb-4 shadow-2xl"><span class="text-4xl sm:text-5xl">📐</span>
+       </div>
+       <div class="mb-3"><span class="text-green-600 font-bold text-xs sm:text-sm tracking-wider">BAB 2</span>
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mt-2 outfit">Vektor</h3>
+       </div>
+       <p class="text-gray-600 text-sm leading-relaxed mb-4">Memahami konsep vektor, operasi vektor, dan penerapannya dalam fisika.</p>
+       <a href="C:\Users\ikank\OneDrive\Desktop\dul web\bab2.html">
+        <div class="flex items-center gap-2 text-green-600 font-bold text-sm pt-3 border-t border-gray-200"><span>Mulai Belajar</span> <span class="text-lg">→</span>
+       </div></a>
+      </div><!-- Bab 3 -->
+      <div class="menu-card glass-card rounded-3xl p-6 cursor-pointer slide-up delay-3">
+       <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl gradient-teal flex items-center justify-center mb-4 shadow-2xl"><span class="text-4xl sm:text-5xl">🏃‍♂️</span>
+       </div>
+       <div class="mb-3"><span class="text-cyan-600 font-bold text-xs sm:text-sm tracking-wider">BAB 3</span>
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mt-2 outfit">Gerak Lurus</h3>
+       </div>
+       <p class="text-gray-600 text-sm leading-relaxed mb-4">Pelajari GLB, GLBB, gerak jatuh bebas, dan gerak vertikal dengan grafik interaktif.</p>
+       <a href="C:\Users\ikank\OneDrive\Desktop\dul web\bab3.html">
+       <div class="flex items-center gap-2 text-cyan-600 font-bold text-sm pt-3 border-t border-gray-200"><span>Mulai Belajar</span> <span class="text-lg">→</span>
+       </div></a>
+      </div><!-- Bab 4 -->
+      <div class="menu-card glass-card rounded-3xl p-6 cursor-pointer slide-up delay-4">
+       <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl gradient-orange flex items-center justify-center mb-4 shadow-2xl"><span class="text-4xl sm:text-5xl">🔄</span>
+       </div>
+       <div class="mb-3"><span class="text-orange-600 font-bold text-xs sm:text-sm tracking-wider">BAB 4</span>
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mt-2 outfit">Gerak Parabola</h3>
+       </div>
+       <p class="text-gray-600 text-sm leading-relaxed mb-4">Memahami gerak peluru dan gerak parabola dengan simulasi visual.</p>
+       <a href="C:\Users\ikank\OneDrive\Desktop\dul web\bab4.html">
+       <div class="flex items-center gap-2 text-orange-600 font-bold text-sm pt-3 border-t border-gray-200"><span>Mulai Belajar</span> <span class="text-lg">→</span>
+       </div></a>
+      </div><!-- Bab 5 -->
+      <div class="menu-card glass-card rounded-3xl p-6 cursor-pointer slide-up delay-5">
+       <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl gradient-red flex items-center justify-center mb-4 shadow-2xl"><span class="text-4xl sm:text-5xl">🌀</span>
+       </div>
+       <div class="mb-3"><span class="text-red-600 font-bold text-xs sm:text-sm tracking-wider">BAB 5</span>
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mt-2 outfit">Gerak Melingkar</h3>
+       </div>
+       <p class="text-gray-600 text-sm leading-relaxed mb-4">Pelajari gerak melingkar beraturan, periode, frekuensi, dan percepatan sentripetal.</p>
+       <a href="C:\Users\ikank\OneDrive\Desktop\dul web\bab5.html">
+       <div class="flex items-center gap-2 text-red-600 font-bold text-sm pt-3 border-t border-gray-200"><span>Mulai Belajar</span> <span class="text-lg">→</span>
+       </div></a>
+      </div><!-- Bab 6 -->
+      <div class="menu-card glass-card rounded-3xl p-6 cursor-pointer slide-up delay-6">
+       <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl gradient-purple flex items-center justify-center mb-4 shadow-2xl"><span class="text-4xl sm:text-5xl">⚖️</span>
+       </div>
+       <div class="mb-3"><span class="text-purple-600 font-bold text-xs sm:text-sm tracking-wider">BAB 6</span>
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mt-2 outfit">Hukum Newton</h3>
+       </div>
+       <p class="text-gray-600 text-sm leading-relaxed mb-4">Memahami tiga hukum Newton dan penerapannya dalam kehidupan sehari-hari.</p>
+       <a href="C:\Users\ikank\OneDrive\Desktop\dul web\bab6.html">
+       <div class="flex items-center gap-2 text-purple-600 font-bold text-sm pt-3 border-t border-gray-200"><span>Mulai Belajar</span> <span class="text-lg">→</span>
+       </div></a>
+      </div>
+     </div>
+    </div><!-- Info Section -->
+    <div class="max-w-4xl mx-auto mt-12 slide-up px-4">
+     <div class="glass-card rounded-3xl p-6 md:p-10 text-center"><span class="text-5xl sm:text-6xl block mb-4 sm:mb-6">💡</span>
+      <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">Cara Menggunakan Portal</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-left">
+       <div class="bg-blue-50 p-5 sm:p-6 rounded-2xl">
+        <div class="w-12 h-12 rounded-xl bg-blue-500 text-white flex items-center justify-center text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+         1
+        </div>
+        <p class="text-gray-700 font-semibold mb-2 text-sm sm:text-base">Pilih Bab</p>
+        <p class="text-xs sm:text-sm text-gray-600">Klik pada kartu materi yang ingin kamu pelajari</p>
+       </div>
+       <div class="bg-green-50 p-5 sm:p-6 rounded-2xl">
+        <div class="w-12 h-12 rounded-xl bg-green-500 text-white flex items-center justify-center text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+         2
+        </div>
+        <p class="text-gray-700 font-semibold mb-2 text-sm sm:text-base">Pelajari Materi</p>
+        <p class="text-xs sm:text-sm text-gray-600">Baca penjelasan lengkap dengan contoh soal</p>
+       </div>
+       <div class="bg-purple-50 p-5 sm:p-6 rounded-2xl">
+        <div class="w-12 h-12 rounded-xl bg-purple-500 text-white flex items-center justify-center text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+         3
+        </div>
+        <p class="text-gray-700 font-semibold mb-2 text-sm sm:text-base">Kerjakan Latihan</p>
+        <p class="text-xs sm:text-sm text-gray-600">Uji pemahamanmu dengan soal-soal interaktif</p>
+       </div>
+      </div>
+     </div>
+    </div><!-- Footer -->
+    <div class="max-w-5xl mx-auto mt-12 sm:mt-16 text-center text-white/70 px-4">
+     <p class="text-xs sm:text-sm">© 2026 Portal Pembelajaran Fisika</p>
+     <p class="mt-2 text-xs">Dibuat dengan ❤️ untuk pendidikan Indonesia</p>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      portal_title: "Portal Fisika",
+      portal_subtitle: "Kelas X Semester 1",
+      teacher_name: "Abdurrazzaq",
+      school_name: "SMA Negeri 1 Halmahera Timur",
+      welcome_message: "Selamat datang di portal pembelajaran fisika interaktif! Pilih bab yang ingin kamu pelajari di bawah ini.",
+      background_color: "#667eea",
+      card_color: "#ffffff",
+      text_color: "#1f2937",
+      accent_color: "#4facfe",
+      font_family: "Poppins",
+      font_size: 16
+    };
+
+    async function onConfigChange(config) {
+      const portalTitleEl = document.getElementById('portal-title');
+      const portalSubtitleEl = document.getElementById('portal-subtitle');
+      const teacherDisplayEl = document.getElementById('teacher-display');
+      const schoolDisplayEl = document.getElementById('school-display');
+      const welcomeMessageEl = document.getElementById('welcome-message');
+      
+      if (portalTitleEl) {
+        portalTitleEl.textContent = config.portal_title || defaultConfig.portal_title;
+      }
+      
+      if (portalSubtitleEl) {
+        portalSubtitleEl.textContent = config.portal_subtitle || defaultConfig.portal_subtitle;
+      }
+      
+      if (teacherDisplayEl) {
+        teacherDisplayEl.textContent = config.teacher_name || defaultConfig.teacher_name;
+      }
+      
+      if (schoolDisplayEl) {
+        schoolDisplayEl.textContent = config.school_name || defaultConfig.school_name;
+      }
+      
+      if (welcomeMessageEl) {
+        welcomeMessageEl.textContent = config.welcome_message || defaultConfig.welcome_message;
+      }
+      
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      document.body.style.fontFamily = `${fontFamily}, sans-serif`;
+      
+      const baseSize = config.font_size || defaultConfig.font_size;
+      document.body.style.fontSize = `${baseSize}px`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.card_color || defaultConfig.card_color,
+            set: (value) => {
+              config.card_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ card_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              config.accent_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ accent_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            if (window.elementSdk) window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            if (window.elementSdk) window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["portal_title", config.portal_title || defaultConfig.portal_title],
+        ["portal_subtitle", config.portal_subtitle || defaultConfig.portal_subtitle],
+        ["teacher_name", config.teacher_name || defaultConfig.teacher_name],
+        ["school_name", config.school_name || defaultConfig.school_name],
+        ["welcome_message", config.welcome_message || defaultConfig.welcome_message]
+      ]);
+    }
+
+    // Menu click handlers - Currently shows message, you can link to actual pages
+    const menuCards = document.querySelectorAll('.menu-card');
+    menuCards.forEach((card, index) => {
+      card.addEventListener('click', function() {
+        const babNumber = index + 1;
+        const babTitle = this.querySelector('.text-xl').textContent;
+        
+        // Create toast notification
+        const toast = document.createElement('div');
+        toast.className = 'fixed top-8 left-1/2 transform -translate-x-1/2 bg-white rounded-2xl shadow-2xl px-8 py-4 z-50 slide-up';
+        toast.innerHTML = `
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl ${this.querySelector('.w-16').className.match(/gradient-\w+/)[0]} flex items-center justify-center">
+              <span class="text-2xl">${this.querySelector('.text-4xl').textContent}</span>
+            </div>
+            <div>
+              <p class="font-bold text-gray-800">Bab ${babNumber}: ${babTitle}</p>
+              <p class="text-sm text-gray-600">Materi sedang disiapkan...</p>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateX(-50%) translateY(-20px)';
+          setTimeout(() => toast.remove(), 300);
+        }, 2500);
+      });
+    });
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bf3f45145d74ad7',t:'MTc2ODYzMzAwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
